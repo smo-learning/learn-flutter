@@ -1,10 +1,22 @@
+import 'package:assignment_one_basics/textControl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _shownText = "Hallo Welt!";
+
+  void _onButtonClick() {
+    setState(() => {this._shownText = "Pressed!"});
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,12 +26,11 @@ class MyApp extends StatelessWidget {
           title: Text("Assignment One"),
         ),
         body: Container(
+          width: double.infinity,
+          margin: EdgeInsets.all(10),
           child: Column(
             children: [
-              Text(
-                "Hallo Welt!",
-                textAlign: TextAlign.center,
-              ),
+              TextControl(_shownText, _onButtonClick),
             ],
           ),
         ),
