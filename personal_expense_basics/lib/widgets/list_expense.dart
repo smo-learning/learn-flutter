@@ -6,16 +6,11 @@ class ListExpense extends StatelessWidget {
 
   ListExpense(this._expenses);
 
-  List<Card> get expenseWidgets {
-    return this._expenses.map((e) => _generateCardForExpense(e)).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: expenseWidgets,
+      children: this._expenses.map((e) => _generateCardForExpense(e)).toList(),
     );
-    // return _generateCardForExpense(this._expenses[0]);
   }
 
   Card _generateCardForExpense(Expense expense) {
@@ -27,7 +22,6 @@ class ListExpense extends StatelessWidget {
           vertical: 15,
         ),
         child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               decoration: BoxDecoration(
