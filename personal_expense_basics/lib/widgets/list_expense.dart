@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:personal_expense_basics/models/expense.dart';
 
 class ListExpense extends StatelessWidget {
@@ -45,8 +46,11 @@ class ListExpense extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 // mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(expense.title),
-                  Text(expense.date.toString()),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(expense.title),
+                  ),
+                  Text(DateFormat.yMMMd().format(expense.date)),
                 ],
               ),
             ),

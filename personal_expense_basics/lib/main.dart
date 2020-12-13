@@ -26,7 +26,9 @@ class _HomePageState extends State<_HomePage> {
   ];
 
   _addExpense(String title, double amount) {
-    this._expenses.add(Expense(title, amount, DateTime.now()));
+    setState(() {
+      this._expenses.add(Expense(title, amount, DateTime.now()));
+    });
   }
 
   _onShowAddExpense(BuildContext ctx) {

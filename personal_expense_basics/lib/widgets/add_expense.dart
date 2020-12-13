@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddExpense extends StatefulWidget {
-  Function _addExpense;
+  final Function _addExpense;
 
   AddExpense(this._addExpense);
 
@@ -11,13 +11,21 @@ class AddExpense extends StatefulWidget {
 
 class _AddExpenseState extends State<AddExpense> {
   final _titleController = TextEditingController();
-
   final _amountController = TextEditingController();
 
-  _addValidExpense() {
+  void _addValidExpense() {
     String title = _titleController.text;
+
+    if (title.isEmpty) {
+      return;
+    }
     double amount = double.parse(_amountController.text);
+    if (amount <= 0) {
+      return;
+    }
+
     widget._addExpense(title, amount);
+    Navigator.of(context).pop();
   }
 
   @override
