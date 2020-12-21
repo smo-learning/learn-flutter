@@ -10,7 +10,7 @@ class ListExpense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: 400,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
           return _generateCardForExpense(_expenses[index]);

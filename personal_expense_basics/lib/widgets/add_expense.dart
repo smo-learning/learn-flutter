@@ -33,6 +33,7 @@ class _AddExpenseState extends State<AddExpense> {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           TextField(
             decoration: InputDecoration(
@@ -48,6 +49,12 @@ class _AddExpenseState extends State<AddExpense> {
             controller: _amountController,
             onSubmitted: (_) => _addValidExpense(),
           ),
+          RaisedButton(
+            child: Text("Add Expense"),
+            color: Theme.of(context).primaryColor,
+            textColor: Theme.of(context).textTheme.button.color,
+            onPressed: _addValidExpense,
+          )
         ],
       ),
     );

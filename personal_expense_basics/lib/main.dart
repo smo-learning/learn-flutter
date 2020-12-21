@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expense_basics/widgets/chart.dart';
 
 import 'models/expense.dart';
 import 'widgets/add_expense.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
         accentColor: Colors.amber,
-        primaryTextTheme: ThemeData.light().textTheme.copyWith(
+        textTheme: ThemeData.light().textTheme.copyWith(
               title: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
@@ -36,6 +37,13 @@ class _HomePageState extends State<_HomePage> {
     Expense("Test2", 46.23, DateTime.now()),
     Expense("Test3", 15.0, DateTime.now()),
   ];
+
+  List<Expense> get _recentTransactions {
+    DateTime oneWeekBefore = DateTime.now().subtract(Duration(days: 7));
+    return _expenses
+        .where((element) => element.date.isAfter(oneWeekBefore))
+        .toList();
+  }
 
   _addExpense(String title, double amount) {
     setState(() {
@@ -63,6 +71,7 @@ class _HomePageState extends State<_HomePage> {
       ),
       body: Column(
         children: [
+          Chart(_recentTransactions),
           ListExpense(_expenses),
         ],
       ),
