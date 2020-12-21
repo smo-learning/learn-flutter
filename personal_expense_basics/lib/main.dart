@@ -33,9 +33,7 @@ class MyApp extends StatelessWidget {
 
 class _HomePageState extends State<_HomePage> {
   final List<Expense> _expenses = [
-    Expense("Test", 1.0, DateTime.now()),
-    Expense("Test2", 46.23, DateTime.now()),
-    Expense("Test3", 15.0, DateTime.now()),
+    Expense("1", "Test", 1.0, DateTime.now()),
   ];
 
   List<Expense> get _recentTransactions {
@@ -47,7 +45,15 @@ class _HomePageState extends State<_HomePage> {
 
   _addExpense(String title, double amount, DateTime date) {
     setState(() {
-      this._expenses.add(Expense(title, amount, date));
+      this
+          ._expenses
+          .add(Expense(DateTime.now().toString(), title, amount, date));
+    });
+  }
+
+  _deleteExpense(String id) {
+    setState(() {
+      _expenses.removeWhere((element) => element.id == id);
     });
   }
 
@@ -72,7 +78,7 @@ class _HomePageState extends State<_HomePage> {
       body: Column(
         children: [
           Chart(_recentTransactions),
-          ListExpense(_expenses),
+          ListExpense(_expenses, _deleteExpense),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

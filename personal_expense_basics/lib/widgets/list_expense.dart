@@ -4,8 +4,9 @@ import 'package:personal_expense_basics/models/expense.dart';
 
 class ListExpense extends StatelessWidget {
   final List<Expense> _expenses;
+  final Function _deleteExpense;
 
-  ListExpense(this._expenses);
+  ListExpense(this._expenses, this._deleteExpense);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ListExpense extends StatelessWidget {
       height: 400,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
-          return _generateCardForExpense(_expenses[index]);
+          return _generateCardForExpense(_expenses[index], context);
         },
         itemCount: _expenses.length,
       ),
@@ -23,7 +24,7 @@ class ListExpense extends StatelessWidget {
     // );
   }
 
-  Card _generateCardForExpense(Expense expense) {
+  Card _generateCardForExpense(Expense expense, BuildContext ctxt) {
     return Card(
       elevation: 5,
       child: Container(
@@ -43,41 +44,12 @@ class ListExpense extends StatelessWidget {
           ),
           title: Text(expense.title),
           subtitle: Text(DateFormat.yMMMd().format(expense.date)),
+          trailing: IconButton(
+            icon: Icon(Icons.delete),
+            color: Theme.of(ctxt).errorColor,
+            onPressed: () => _deleteExpense(expense.id),
+          ),
         ),
-        // Row(
-        //   children: [
-        //     Container(
-        //       decoration: BoxDecoration(
-        //         border: Border.all(
-        //           color: Colors.purple,
-        //           width: 2,
-        //         ),
-        //       ),
-        //       child: Container(
-        //         margin: EdgeInsets.all(10),
-        //         child: Text(expense.amount.toString()),
-        //       ),
-        //     ),
-        //     Spacer(),
-        //     Container(
-        //       margin: EdgeInsets.only(
-        //         left: 10,
-        //         right: 10,
-        //       ),
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         // mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           FittedBox(
-        //             fit: BoxFit.fitWidth,
-        //             child: Text(expense.title),
-        //           ),
-        //           Text(DateFormat.yMMMd().format(expense.date)),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
