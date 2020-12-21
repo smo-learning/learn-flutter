@@ -45,9 +45,9 @@ class _HomePageState extends State<_HomePage> {
         .toList();
   }
 
-  _addExpense(String title, double amount) {
+  _addExpense(String title, double amount, DateTime date) {
     setState(() {
-      this._expenses.add(Expense(title, amount, DateTime.now()));
+      this._expenses.add(Expense(title, amount, date));
     });
   }
 

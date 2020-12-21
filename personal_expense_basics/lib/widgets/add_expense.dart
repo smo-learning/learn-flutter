@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddExpense extends StatefulWidget {
   final Function _addExpense;
@@ -12,6 +13,7 @@ class AddExpense extends StatefulWidget {
 class _AddExpenseState extends State<AddExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
   void _addValidExpense() {
     String title = _titleController.text;
@@ -24,13 +26,27 @@ class _AddExpenseState extends State<AddExpense> {
       return;
     }
 
-    widget._addExpense(title, amount);
+    widget._addExpense(title, amount, _selectedDate);
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    ).then((value) {
+      setState(() {
+        this._selectedDate = value;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -40,14 +56,26 @@ class _AddExpenseState extends State<AddExpense> {
               labelText: "Title",
             ),
             controller: _titleController,
-            onSubmitted: (_) => _addValidExpense(),
           ),
           TextField(
             decoration: InputDecoration(
               labelText: "Amount",
             ),
             controller: _amountController,
-            onSubmitted: (_) => _addValidExpense(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(_selectedDate == null
+                  ? "No date Chosen"
+                  : 'Choosen Date: ${DateFormat.yMd().format(_selectedDate)}'),
+              FlatButton(
+                onPressed: _presentDatePicker,
+                child: Text("Choose Date"),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).textTheme.button.color,
+              ),
+            ],
           ),
           RaisedButton(
             child: Text("Add Expense"),
