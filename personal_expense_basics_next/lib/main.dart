@@ -12,11 +12,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.teal,
         accentColor: Colors.amber,
         fontFamily: 'PermanentMarker',
         textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(fontFamily: 'PermanentMarker', fontSize: 18)),
+              headline6: TextStyle(fontFamily: 'PermanentMarker', fontSize: 18),
+              button:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(fontFamily: 'DancingScript', fontSize: 25),
@@ -48,12 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime date) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: title,
         amount: amount,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       _userTransactions.add(newTx);
