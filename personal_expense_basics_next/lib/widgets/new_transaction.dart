@@ -55,7 +55,7 @@ class _NewTransactionState extends State<NewTransaction> {
           children: [
             TextField(
               controller: titleController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Title',
               ),
               onSubmitted: (_) => _onSubmit(),
@@ -81,7 +81,7 @@ class _NewTransactionState extends State<NewTransaction> {
                     onPressed: () {
                       _presentDatePicker(context);
                     },
-                    child: Text(
+                    child: const Text(
                       'Choose Date',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
