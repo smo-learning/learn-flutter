@@ -75,9 +75,9 @@ class MealDetailScreen extends StatelessWidget {
                       children: [
                         ListTile(
                           leading: CircleAvatar(
-                            child: Text('ä ${index + 1}'),
+                            child: SelectableText('${index + 1}'),
                           ),
-                          title: Text(step),
+                          title: SelectableText(step),
                         ),
                         Divider()
                       ],
