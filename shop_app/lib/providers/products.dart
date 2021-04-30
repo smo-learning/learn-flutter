@@ -96,7 +96,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url = Uri.parse(
-        'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+        'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products.json?auth=$authToken');
     var encode = json.encode(
       {
         'title': product.title,
@@ -136,7 +136,7 @@ class Products with ChangeNotifier {
         },
       );
       final url = Uri.parse(
-          'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
+          'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$authToken');
       await http.patch(url, body: encode);
       _items[prodIndex] = newProduct;
       notifyListeners();
@@ -145,7 +145,7 @@ class Products with ChangeNotifier {
 
   void deleteProduct(String id) {
     final url = Uri.parse(
-        'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json');
+        'https://flutter-shop-app-2219d-default-rtdb.europe-west1.firebasedatabase.app/products/$id.json?auth=$authToken');
     http.delete(url);
     _items.removeWhere((element) => element.id == id);
     notifyListeners();
