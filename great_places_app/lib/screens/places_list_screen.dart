@@ -17,28 +17,37 @@ class PlacesListScreen extends StatelessWidget {
               })
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        builder: (ctx, greatPlaces, ch) {
-          return greatPlaces.items.length <= 0
-              ? ch
-              : ListView.builder(
-                  itemBuilder: (ctx, index) {
-                    var item = greatPlaces.items[index];
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: FileImage(item.image),
-                      ),
-                      title: Text(item.title),
-                      onTap: () {
-                        // go to detail page
-                      },
-                    );
-                  },
-                  itemCount: greatPlaces.items.length);
-        },
-        child: Center(
-          child: const Text('Got not places yet, start adding some!'),
-        ),
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false)
+            .fetchAndSetPlaces(),
+        builder: (ctx, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Consumer<GreatPlaces>(
+                builder: (ctx, greatPlaces, ch) {
+                  return greatPlaces.items.length <= 0
+                      ? ch
+                      : ListView.builder(
+                          itemBuilder: (ctx, index) {
+                            var item = greatPlaces.items[index];
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: FileImage(item.image),
+                              ),
+                              title: Text(item.title),
+                              onTap: () {
+                                // go to detail page
+                              },
+                            );
+                          },
+                          itemCount: greatPlaces.items.length);
+                },
+                child: Center(
+                  child: const Text('Got not places yet, start adding some!'),
+                ),
+              ),
       ),
     );
   }

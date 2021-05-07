@@ -22,14 +22,16 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.camera,
       maxWidth: 600,
     );
-    final imageFile = File(pickedFile.path);
-    setState(() {
-      _storedImage = imageFile;
-    });
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile.path);
-    final savedImage = await imageFile.copy('${appDir.path}/$fileName');
-    widget.onSelectImage(savedImage);
+    if (pickedFile != null) {
+      final imageFile = File(pickedFile.path);
+      setState(() {
+        _storedImage = imageFile;
+      });
+      final appDir = await syspaths.getApplicationDocumentsDirectory();
+      final fileName = path.basename(imageFile.path);
+      final savedImage = await imageFile.copy('${appDir.path}/$fileName');
+      widget.onSelectImage(savedImage);
+    }
   }
 
   @override
