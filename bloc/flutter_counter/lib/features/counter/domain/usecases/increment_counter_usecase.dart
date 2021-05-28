@@ -13,7 +13,7 @@ class IncrementCounterUseCaseImpl extends IncrementCounterUseCase {
   IncrementCounterUseCaseImpl(this._port);
 
   @override
-  Future<Either<Failure, int>> call(NoParams params) async {
+  Future<Either<Failure, int>> execute(NoParams params) async {
     return _port.increment();
   }
 }

@@ -24,14 +24,12 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     if (event is CounterIncrementedEvent) {
       final result = await incrementUseCase(NoParams());
       yield result.fold(
-          (l) => CounterErrorState(CounterFailure.incrementFailure),
-          (r) => CounterSuccessState(r));
+          (l) => CounterErrorState(l), (r) => CounterSuccessState(r));
     }
     if (event is CounterDecrementedEvent) {
       final result = await decrementUseCase(NoParams());
       yield result.fold(
-          (l) => CounterErrorState(CounterFailure.decrementFailure),
-          (r) => CounterSuccessState(r));
+          (l) => CounterErrorState(l), (r) => CounterSuccessState(r));
     }
   }
 }

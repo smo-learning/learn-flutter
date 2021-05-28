@@ -32,6 +32,11 @@ class CounterView extends StatelessWidget {
               child: Text('${state.counter}'),
             );
           }
+          if (state is CounterErrorState) {
+            return Container(
+              child: Text('Error: ${state.failure.code}'),
+            );
+          }
           return const Center(child: CircularProgressIndicator());
         },
       ),
