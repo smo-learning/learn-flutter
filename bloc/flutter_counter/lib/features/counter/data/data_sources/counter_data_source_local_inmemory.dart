@@ -8,8 +8,7 @@ class CounterDataSourceLocalInMemory extends CounterDataSourceLocal {
   int counter = 0;
   @override
   Future<Either<Failure, int>> decrement() async {
-    throw "kaputt";
-    // return Right(--counter);
+    return Right(--counter);
   }
 
   @override
