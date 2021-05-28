@@ -7,6 +7,9 @@ import 'package:flutter_counter/features/counter/domain/usecases/decrement_count
 import 'package:flutter_counter/features/counter/domain/usecases/increment_counter_usecase.dart';
 import 'package:injectable/injectable.dart';
 
+part 'counter_event.dart';
+part 'counter_state.dart';
+
 @injectable
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
   IncrementCounterUseCase incrementUseCase;
@@ -32,38 +35,3 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     }
   }
 }
-
-abstract class CounterState extends Equatable {
-  const CounterState();
-}
-
-class CounterLoadingState extends CounterState {
-  @override
-  List<Object?> get props => [];
-}
-
-class CounterErrorState extends CounterState {
-  final Failure failure;
-  const CounterErrorState(this.failure);
-
-  @override
-  List<Object?> get props => [];
-}
-
-class CounterSuccessState extends CounterState {
-  final int counter;
-  const CounterSuccessState(this.counter);
-
-  @override
-  List<Object?> get props => [this.counter];
-}
-
-abstract class CounterEvent extends Equatable {
-  const CounterEvent();
-  @override
-  List<Object?> get props => [];
-}
-
-class CounterIncrementedEvent extends CounterEvent {}
-
-class CounterDecrementedEvent extends CounterEvent {}
