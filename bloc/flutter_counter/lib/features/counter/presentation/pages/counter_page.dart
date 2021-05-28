@@ -20,46 +20,66 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter'),
-      ),
-      body: BlocBuilder<CounterBloc, CounterState>(
-        builder: (context, state) {
-          if (state is CounterSuccessState) {
-            return Container(
-              padding: const EdgeInsets.all(10),
-              child: Text('${state.counter}'),
-            );
-          }
-          if (state is CounterErrorState) {
-            return Container(
-              child: Text('Error: ${state.failure.code}'),
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<CounterBloc>(context)
-                  .add(CounterIncrementedEvent());
-            },
-            child: const Icon(Icons.add),
+    return BlocBuilder<CounterBloc, CounterState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Counter'),
           ),
-          const SizedBox(height: 4),
-          FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<CounterBloc>(context)
-                  .add(CounterDecrementedEvent());
-            },
-            child: const Icon(Icons.no_encryption_gmailerrorred_outlined),
+          body: Center(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              child: currentStateWidget(state),
+            ),
           ),
-        ],
-      ),
+          floatingActionButton: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  BlocProvider.of<CounterBloc>(context).add(
+                      CounterIncrementedEvent(
+                          state is CounterSuccessState ? state.counter : 0));
+                },
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(height: 4),
+              FloatingActionButton(
+                onPressed: () {
+                  BlocProvider.of<CounterBloc>(context).add(
+                      CounterDecrementedEvent(
+                          state is CounterSuccessState ? state.counter : 0));
+                },
+                child: const Icon(Icons.no_encryption_gmailerrorred_outlined),
+              ),
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  Widget currentStateWidget(CounterState state) {
+    if (state is CounterSuccessState) {
+      return Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(border: Border.all(width: 1)),
+        child: Text(
+          '${state.counter}',
+          style: TextStyle(
+            fontSize: 42,
+          ),
+        ),
+      );
+    }
+    if (state is CounterErrorState) {
+      return Container(
+          child: Text('Error: ${state.failure.code}',
+              style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 42)));
+    }
+    return const CircularProgressIndicator();
   }
 }

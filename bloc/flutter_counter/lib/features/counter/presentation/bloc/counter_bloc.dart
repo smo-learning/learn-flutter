@@ -22,12 +22,14 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   Stream<CounterState> mapEventToState(CounterEvent event) async* {
     yield CounterLoadingState();
     if (event is CounterIncrementedEvent) {
-      final result = await incrementUseCase(NoParams());
+      final result =
+          await incrementUseCase(IncrementCounterParams(event.oldCounter));
       yield result.fold(
           (l) => CounterErrorState(l), (r) => CounterSuccessState(r));
     }
     if (event is CounterDecrementedEvent) {
-      final result = await decrementUseCase(NoParams());
+      final result =
+          await decrementUseCase(DecrementCounterParams(event.oldCounter));
       yield result.fold(
           (l) => CounterErrorState(l), (r) => CounterSuccessState(r));
     }
