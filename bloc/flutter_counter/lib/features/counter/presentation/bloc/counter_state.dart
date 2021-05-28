@@ -18,7 +18,7 @@ class CounterErrorState extends CounterState {
 }
 
 class CounterSuccessState extends CounterState {
-  final int counter;
+  final Counter counter;
   const CounterSuccessState(this.counter);
 
   @override

@@ -38,8 +38,9 @@ class CounterView extends StatelessWidget {
               FloatingActionButton(
                 onPressed: () {
                   BlocProvider.of<CounterBloc>(context).add(
-                      CounterIncrementedEvent(
-                          state is CounterSuccessState ? state.counter : 0));
+                      CounterIncrementedEvent(state is CounterSuccessState
+                          ? state.counter.counter
+                          : 0));
                 },
                 child: const Icon(Icons.add),
               ),
@@ -47,10 +48,11 @@ class CounterView extends StatelessWidget {
               FloatingActionButton(
                 onPressed: () {
                   BlocProvider.of<CounterBloc>(context).add(
-                      CounterDecrementedEvent(
-                          state is CounterSuccessState ? state.counter : 0));
+                      CounterDecrementedEvent(state is CounterSuccessState
+                          ? state.counter.counter
+                          : 0));
                 },
-                child: const Icon(Icons.no_encryption_gmailerrorred_outlined),
+                child: const Icon(Icons.remove),
               ),
             ],
           ),
@@ -65,9 +67,9 @@ class CounterView extends StatelessWidget {
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(border: Border.all(width: 1)),
         child: Text(
-          '${state.counter}',
+          '${state.counter.counter}',
           style: TextStyle(
-            fontSize: 42,
+            fontSize: (state.counter.counter * 2) + 10,
           ),
         ),
       );
@@ -80,6 +82,6 @@ class CounterView extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 42)));
     }
-    return const CircularProgressIndicator();
+    return const Text("Los");
   }
 }

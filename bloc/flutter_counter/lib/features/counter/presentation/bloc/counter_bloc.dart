@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_counter/core/domain/failure.dart';
 import 'package:flutter_counter/core/domain/usecase.dart';
+import 'package:flutter_counter/features/counter/domain/entities/counter.dart';
 import 'package:flutter_counter/features/counter/domain/failures/counter_failure.dart';
 import 'package:flutter_counter/features/counter/domain/usecases/decrement_counter_usecase.dart';
 import 'package:flutter_counter/features/counter/domain/usecases/increment_counter_usecase.dart';

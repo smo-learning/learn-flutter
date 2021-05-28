@@ -1,12 +1,13 @@
 import 'package:flutter_counter/core/domain/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_counter/core/domain/usecase.dart';
+import 'package:flutter_counter/features/counter/domain/entities/counter.dart';
 import 'package:flutter_counter/features/counter/domain/port/counter_port.dart';
 import 'package:injectable/injectable.dart';
 
 // ignore: one_member_abstracts
 abstract class IncrementCounterUseCase
-    extends UseCase<int, IncrementCounterParams> {}
+    extends UseCase<Counter, IncrementCounterParams> {}
 
 class IncrementCounterParams extends Params {
   final int oldCounter;
@@ -21,7 +22,8 @@ class IncrementCounterUseCaseImpl extends IncrementCounterUseCase {
   IncrementCounterUseCaseImpl(this._port);
 
   @override
-  Future<Either<Failure, int>> execute(IncrementCounterParams params) async {
+  Future<Either<Failure, Counter>> execute(
+      IncrementCounterParams params) async {
     return _port.increment();
   }
 }
